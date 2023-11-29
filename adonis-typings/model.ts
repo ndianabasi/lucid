@@ -252,6 +252,22 @@ declare module '@ioc:Adonis/Lucid/Orm' {
    */
   export type DateTimeColumnDecorator = DateColumnDecorator
 
+  export type JsonColumnOptions<JsonType = any> = Partial<
+    ColumnOptions & {
+      replacer: (key: string, value: any) => any
+      space: string | number
+      reviver: (key: string, value: any) => JsonType
+      nullOnParseError: boolean
+    }
+  >
+
+  /**
+   * Decorator for defining JSON columns
+   */
+  export type JsonColumnDecorator = <JsonType extends any>(
+    options?: JsonColumnOptions<JsonType>
+  ) => OptionalTypedDecorator<JsonType | string | null>
+
   /**
    * Decorator for defining hooks. The generics enforces that
    * decorator is used on static properties only
